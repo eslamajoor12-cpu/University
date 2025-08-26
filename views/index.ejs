@@ -1,0 +1,27 @@
+<% layout('partials/layout') %>
+<section>
+  <h2>الطلاب</h2>
+  <ul>
+    <% students.forEach(s => { %>
+      <li><strong><%= s.name %></strong> — رقم: <%= s.studentId %> — مواد: <%= (s.courses||[]).map(c=>c.name).join(', ') %></li>
+    <% }) %>
+  </ul>
+</section>
+
+<section>
+  <h2>الدكاترة</h2>
+  <ul>
+    <% professors.forEach(p => { %>
+      <li><strong><%= p.name %></strong></li>
+    <% }) %>
+  </ul>
+</section>
+
+<section>
+  <h2>المقررات</h2>
+  <ul>
+    <% courses.forEach(c => { %>
+      <li><strong><%= c.name %></strong> (<%= c.code %>) — دكتور: <%= c.professor ? c.professor.name : 'غير محدد' %></li>
+    <% }) %>
+  </ul>
+</section>

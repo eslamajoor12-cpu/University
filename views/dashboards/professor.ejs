@@ -1,0 +1,12 @@
+<% layout('partials/layout') %>
+<h2>لوحة الدكتور</h2>
+<section class="card">
+  <p><strong>الاسم:</strong> <%= professor?.name %></p>
+  <p><strong>القسم:</strong> <%= professor?.department %></p>
+  <h3>كورساتي</h3>
+  <ul>
+    <% (courses || []).forEach(c => { %>
+      <li><%= c.name %> (<%= c.code %>) — طلاب: <%= (c.students||[]).length %></li>
+    <% }) %>
+  </ul>
+</section>

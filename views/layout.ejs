@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= title || 'بوابة الجامعة' %></title>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <a href="/" class="brand">بوابة الجامعة</a>
+    <nav>
+      <% if (user) { %>
+        <a href="/dashboard">لوحة التحكم</a>
+        <form action="/auth/logout" method="post" style="display:inline;">
+          <button>تسجيل خروج</button>
+        </form>
+      <% } else { %>
+        <a href="/auth/login">تسجيل الدخول</a>
+        <a href="/auth/register">إنشاء حساب</a>
+      <% } %>
+    </nav>
+  </header>
+  <main class="container">
+    <% if (error) { %>
+      <div class="alert"><%= error %></div>
+    <% } %>
+    <%- body %>
+  </main>
+  <footer class="footer">© <%= new Date().getFullYear() %> جامعة تجريبية</footer>
+</body>
+</html>

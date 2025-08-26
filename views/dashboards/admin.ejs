@@ -1,0 +1,65 @@
+<% layout('partials/layout') %>
+<h2>لوحة تحكم الأدمن</h2>
+
+<section class="grid">
+  <div class="card">
+    <h3>إضافة كورس</h3>
+    <form method="post" action="/admin/courses">
+      <label>الكود <input name="code" required /></label>
+      <label>الاسم <input name="name" required /></label>
+      <label>الدكتور
+        <select name="professorId">
+          <option value="">—</option>
+          <% professors.forEach(p => { %>
+            <option value="<%= p._id %>"><%= p.name %></option>
+          <% }) %>
+        </select>
+      </label>
+      <button>حفظ</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>الكورسات</h3>
+    <ul>
+    <% courses.forEach(c => { %>
+      <li>
+        <strong><%= c.name %></strong> (<%= c.code %>) — دكتور: <%= c.professor ? c.professor.name : 'غير محدد' %>
+        <form method="post" action="/admin/courses/<%= c._id %>/delete" style="display:inline"><button>حذف</button></form>
+        <details>
+          <summary>تعيين دكتور/تسجيل طالب</summary>
+          <form method="post" action="/admin/courses/<%= c._id %>/assign-professor">
+            <select name="professorId">
+              <option value="">—</option>
+              <% professors.forEach(p => { %>
+                <option value="<%= p._id %>" <%= c.professor && c.professor._id.toString()===p._id.toString() ? 'selected' : '' %>><%= p.name %></option>
+              <% }) %>
+            </select>
+            <button>تعيين</button>
+          </form>
+          <form method="post" action="/admin/courses/<%= c._id %>/enroll">
+            <select name="studentId">
+              <% students.forEach(s => { %>
+                <option value="<%= s._id %>"><%= s.name %></option>
+              <% }) %>
+            </select>
+            <button>تسجيل الطالب</button>
+          </form>
+          <div>الطلاب: <%= (c.students||[]).map(s=>s.name).join(', ') %></div>
+        </details>
+      </li>
+    <% }) %>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>المستخدمون</h3>
+    <ul>
+      <% users.forEach(u => { %>
+        <li><%= u.email %> — <%= u.role %>
+          <form method="post" action="/admin/users/<%= u._id %>/delete" style="display:inline"><button>حذف</button></form>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</section>

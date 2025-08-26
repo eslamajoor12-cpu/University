@@ -1,0 +1,11 @@
+<% layout('partials/layout') %>
+<h2>تسجيل الدخول</h2>
+<form method="post" action="/auth/login" class="card">
+  <label>البريد الإلكتروني
+    <input name="email" type="email" required />
+  </label>
+  <label>كلمة المرور
+    <input name="password" type="password" required />
+  </label>
+  <button>دخول</button>
+</form>

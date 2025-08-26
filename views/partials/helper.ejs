@@ -1,0 +1,9 @@
+<%
+  // Tiny layout helper
+  const __render = (body) => {
+    const includeLayout = (name) => { %><%- include(name, { body }) %><% };
+    if (typeof layout === 'function') return;
+    layout = (name) => includeLayout(name);
+  };
+  __render(locals.body);
+%>

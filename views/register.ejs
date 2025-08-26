@@ -1,0 +1,43 @@
+<% layout('partials/layout') %>
+<h2>إنشاء حساب</h2>
+<form method="post" action="/auth/register" class="card">
+  <label>البريد الإلكتروني
+    <input name="email" type="email" required />
+  </label>
+  <label>كلمة المرور
+    <input name="password" type="password" minlength="6" required />
+  </label>
+  <label>الاسم (اختياري)
+    <input name="name" type="text" />
+  </label>
+  <label>الدور
+    <select name="role">
+      <option value="student">طالب</option>
+      <option value="professor">دكتور</option>
+      <option value="admin">أدمن</option>
+    </select>
+  </label>
+  <div id="studentExtra">
+    <label>رقم الطالب (اختياري)
+      <input name="studentId" type="text" />
+    </label>
+  </div>
+  <div id="profExtra" style="display:none">
+    <label>القسم (اختياري)
+      <input name="department" type="text" />
+    </label>
+  </div>
+  <button>تسجيل</button>
+</form>
+<script>
+const roleSel = document.querySelector('select[name=role]');
+const studentExtra = document.getElementById('studentExtra');
+const profExtra = document.getElementById('profExtra');
+function toggle() {
+  const v = roleSel.value;
+  studentExtra.style.display = v==='student' ? 'block' : 'none';
+  profExtra.style.display = v==='professor' ? 'block' : 'none';
+}
+roleSel.addEventListener('change', toggle);
+toggle();
+</script>
